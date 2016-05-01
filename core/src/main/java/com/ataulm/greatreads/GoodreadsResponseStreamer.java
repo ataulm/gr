@@ -35,7 +35,7 @@ class GoodreadsResponseStreamer implements Streamer<GoodreadsResponse> {
 
     @Override
     public GoodreadsResponse getStreamResult() {
-        return new GoodreadsResponse(parser.getResult());
+        return parser.getResult();
     }
 
     private static class GoodreadsResponseParser {
@@ -51,13 +51,12 @@ class GoodreadsResponseStreamer implements Streamer<GoodreadsResponse> {
             this.searchFinder = searchFinder;
         }
 
-        // FIXME works but is not good enough - assumes only one child, assumes search is only valid child
         public void parse(Element element) {
             searchFinder.find(element, "search");
         }
 
-        public Search getResult() {
-            return searchFinder.getResult();
+        public GoodreadsResponse getResult() {
+            return new GoodreadsResponse(searchFinder.getResult());
         }
 
     }
