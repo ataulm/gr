@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.ataulm.gr">
+  package="com.ataulm.greatreads">
+
+  <uses-permission android:name="android.permission.INTERNET" />
 
   <application
     android:allowBackup="true"
@@ -7,11 +9,11 @@
     android:icon="@drawable/ic_launcher"
     android:theme="@style/AppTheme">
 
-    <activity android:name="com.ataulm.gr.MyActivity" />
+    <activity android:name="com.ataulm.greatreads.MyActivity" />
 
     <activity-alias
       android:name="activity.primary_launcher"
-      android:targetActivity="com.ataulm.gr.MyActivity">
+      android:targetActivity="com.ataulm.greatreads.MyActivity">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

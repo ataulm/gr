@@ -1,4 +1,4 @@
-package com.ataulm.gr;
+package com.ataulm.greatreads;
 
 import android.content.Context;
 

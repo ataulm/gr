@@ -1,4 +1,4 @@
-package com.ataulm.gr;
+package com.ataulm.greatreads;
 
 import org.junit.Before;
 import org.junit.Test;

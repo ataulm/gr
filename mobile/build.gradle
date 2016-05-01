@@ -1,15 +1,22 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+def goodreadsApiKey = hasProperty('goodreadsApiKey') ? goodreadsApiKey : 'provide this in gradle.properties'
+def goodreadsApiSecret = hasProperty('goodreadsApiSecret') ? goodreadsApiSecret : 'provide this in gradle.properties'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.ataulm.basic"
+        applicationId "com.ataulm.greatreads"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "GOODREADS_API_KEY", "\"$goodreadsApiKey\""
+        buildConfigField "String", "GOODREADS_API_SECRET", "\"$goodreadsApiSecret\""
     }
     buildTypes {
         release {
@@ -27,4 +34,8 @@ dependencies {
     compile "com.android.support:support-v13:${supportVersion}"
     compile "com.android.support:recyclerview-v7:${supportVersion}"
     compile "com.android.support:design:${supportVersion}"
+
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
 }

@@ -21,3 +21,13 @@
 -keep class android.support.v4.** { *; }
 -keep interface android.support.v4.app.** { *; }
 -keep public class * extends android.support.v4.**
+
+# Retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+# Butterknife
+-keep class **$$ViewInjector { *; }
+-keep class **$$ViewBinder { *; }
