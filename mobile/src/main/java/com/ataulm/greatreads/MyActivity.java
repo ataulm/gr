@@ -2,6 +2,7 @@ package com.ataulm.greatreads;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.ataulm.greatreads.goodreads.GoodreadsResponse;
@@ -41,6 +42,7 @@ public class MyActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         responseTextView.setText("error: " + e);
+                        Log.e("!!!", "error", e);
                     }
 
                     @Override

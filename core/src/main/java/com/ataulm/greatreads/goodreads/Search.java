@@ -8,4 +8,10 @@ public class Search {
         this.results = results;
     }
 
+    @Override
+    public String toString() {
+        return "Search{" +
+                "results=" + results +
+                '}';
+    }
 }

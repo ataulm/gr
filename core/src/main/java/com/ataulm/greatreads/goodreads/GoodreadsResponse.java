@@ -33,8 +33,15 @@ public class GoodreadsResponse {
 
     public final Search search;
 
-    GoodreadsResponse(Search search) {
+    public GoodreadsResponse(Search search) {
         this.search = search;
+    }
+
+    @Override
+    public String toString() {
+        return "GoodreadsResponse{" +
+                "search=" + search +
+                '}';
     }
 
 }

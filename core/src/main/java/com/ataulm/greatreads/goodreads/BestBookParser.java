@@ -47,7 +47,8 @@ public class BestBookParser implements Parser<BestBook> {
                 int id = idFinder.getResult();
                 String title = titleFinder.getResult();
                 Author author = authorFinder.getResult();
-                URI smallImageUri = URI.create(smallImageUriFinder.getResult());
+                String url = smallImageUriFinder.getResult();
+                URI smallImageUri = URI.create(url != null ? url : "");
 
                 listener.onParsed(new BestBook(id, title, author, smallImageUri));
             }

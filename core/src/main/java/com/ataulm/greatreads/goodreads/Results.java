@@ -10,4 +10,10 @@ public class Results {
         this.works = works;
     }
 
+    @Override
+    public String toString() {
+        return "Results{" +
+                "works=" + works +
+                '}';
+    }
 }

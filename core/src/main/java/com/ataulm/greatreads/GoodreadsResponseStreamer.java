@@ -1,7 +1,9 @@
 package com.ataulm.greatreads;
 
 import com.ataulm.greatreads.goodreads.GoodreadsResponse;
-import com.ataulm.greatreads.goodreads.GoodreadsResponseParser;
+import com.ataulm.greatreads.goodreads.Search;
+import com.ataulm.greatreads.goodreads.SearchParser;
+import com.novoda.sax.Element;
 import com.novoda.sax.RootElement;
 import com.novoda.sexp.RootTag;
 import com.novoda.sexp.SimpleEasyXmlParser;
@@ -11,16 +13,14 @@ import com.novoda.sexp.finder.ElementFinderFactory;
 
 class GoodreadsResponseStreamer implements Streamer<GoodreadsResponse> {
 
-    private final ElementFinder<GoodreadsResponse> elementFinder;
+    private final GoodreadsResponseParser parser;
 
     public static GoodreadsResponseStreamer newInstance() {
-        ElementFinderFactory eff = SimpleEasyXmlParser.getElementFinderFactory();
-        ElementFinder<GoodreadsResponse> typeFinder = eff.getTypeFinder(GoodreadsResponseParser.newInstance());
-        return new GoodreadsResponseStreamer(typeFinder);
+        return new GoodreadsResponseStreamer(GoodreadsResponseParser.newInstance());
     }
 
-    private GoodreadsResponseStreamer(ElementFinder<GoodreadsResponse> elementFinder) {
-        this.elementFinder = elementFinder;
+    private GoodreadsResponseStreamer(GoodreadsResponseParser parser) {
+        this.parser = parser;
     }
 
     @Override
@@ -30,12 +30,36 @@ class GoodreadsResponseStreamer implements Streamer<GoodreadsResponse> {
 
     @Override
     public void stream(RootElement rootElement) {
-        elementFinder.find(rootElement, "");
+        parser.parse(rootElement);
     }
 
     @Override
     public GoodreadsResponse getStreamResult() {
-        return elementFinder.getResult();
+        return new GoodreadsResponse(parser.getResult());
+    }
+
+    private static class GoodreadsResponseParser {
+
+        private final ElementFinder<Search> searchFinder;
+
+        public static GoodreadsResponseParser newInstance() {
+            ElementFinderFactory eff = SimpleEasyXmlParser.getElementFinderFactory();
+            return new GoodreadsResponseParser(eff.getTypeFinder(SearchParser.newInstance()));
+        }
+
+        private GoodreadsResponseParser(ElementFinder<Search> searchFinder) {
+            this.searchFinder = searchFinder;
+        }
+
+        // FIXME works but is not good enough - assumes only one child, assumes search is only valid child
+        public void parse(Element element) {
+            searchFinder.find(element, "search");
+        }
+
+        public Search getResult() {
+            return searchFinder.getResult();
+        }
+
     }
 
 }
